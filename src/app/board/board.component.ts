@@ -1,5 +1,6 @@
 import { Component, OnInit, ɵsetCurrentInjector } from '@angular/core';
 import { Tile } from '../interfaces/tile';
+import { BoardService } from '../services/board.service';
 
 @Component({
   selector: 'app-board',
@@ -8,7 +9,12 @@ import { Tile } from '../interfaces/tile';
 })
 export class BoardComponent implements OnInit {
 
-  constructor() { }
+  boardService: BoardService;
+  board:Tile[][] = [];
+  constructor() {
+    this.boardService = new BoardService()
+    this.board = this.boardService.board;
+   }
 
   ngOnInit(): void {
   }

@@ -1,12 +1,16 @@
-<div class="grid-container">
-  <div class="grid-item">1</div>
-  <div class="grid-item">2</div>
-  <div class="grid-item">3</div>
-  <div class="grid-item">4</div>
-  <div class="grid-item">5</div>
-  <div class="grid-item">6</div>
-  <div class="grid-item">7</div>
-  <div class="grid-item">8</div>
-  <div class="grid-item">9</div>
+<div style="padding: 10 10;">
+  <div *ngFor="let row of board" class="grid-container" >
+    <div *ngFor="let tile of row" class="grid-item">
+      <div *ngIf="tile.isMine; else notMine">
+        <img style="width: 50px;" src='https://w7.pngwing.com/pngs/570/659/png-transparent-microsoft-minesweeper-land-mine-minesweeper-classic-fr-windows-minesweeper-video-game-snout-minesweeper-thumbnail.png' />
+      </div>
+
+      <ng-template #notMine>
+        {{tile.neighbourMines}}
+      </ng-template>
+    </div>
+
+
+  </div>
 
 </div>
