@@ -103,6 +103,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "minesweeper:build:production",
+            "firebaseProject": "minesweeper-a74df",
+            "firebaseHostingSite": "minesweeper-a74df"
+          }
         }
       }
     }

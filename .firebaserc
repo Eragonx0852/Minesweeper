@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "minesweeper-a74df": {
+      "hosting": {
+        "minesweeper": [
+          "minesweeper-a74df"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "minesweeper-a74df"
+  }
+}
