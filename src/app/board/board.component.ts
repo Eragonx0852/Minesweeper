@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵsetCurrentInjector } from '@angular/core';
+import { Tile } from '../interfaces/tile';
 
 @Component({
   selector: 'app-board',
