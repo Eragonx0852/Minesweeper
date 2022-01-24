@@ -9,14 +9,15 @@ import { BoardService } from '../services/board.service';
 })
 export class BoardComponent implements OnInit {
 
-  boardService: BoardService;
-  board:Tile[][] = [];
-  constructor() {
-    this.boardService = new BoardService()
-    this.board = this.boardService.board;
+
+  board: Tile[][] = [];
+
+  constructor(boardService: BoardService) {
+
    }
 
   ngOnInit(): void {
+
   }
 
 }

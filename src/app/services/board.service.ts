@@ -1,91 +1,90 @@
 import { Inject, Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
 import { Tile } from '../interfaces/tile';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BoardService {
-  size: number = 5;
-  bombs: number = 3;
 
-  board: Tile[][] = [];
+  private size: number = 5;
+  private bombs: number = 3;
 
-  constructor() {
-    //set bombs and size here when received
+  private board: Tile[][] = [];
+  //board$: Observable<Tile[][]>;
+
+  constructor() {}
+
+  public generateGame(bombs: number, gridSize: number) {
+    this.bombs = bombs;
+    this.size = gridSize;
+
     this.generateBoard();
-    this.printBoard();
+    this.generateMines();
+    this.setNeighbors();
+
+    //this.board$.
   }
 
-  generateBoard() {
-    for (let i: number = 0; i < this.size; i++) {
-      this.board[i] = [];
+  private generateBoard() {
+    for (let y = 0; y < this.size; y++) {
+      this.board[y] = [];
 
-      for (let k: number = 0; k < this.size; k++) {
-        this.board[i][k] = this.generateTile(i,k);
+      for (let x: number = 0; x < this.size; x++) {
+        this.board[y][x] = this.generateTile(x, y);
       }
     }
-
-    this.generateMines(this.size);
-    this.setNeighbors();
   }
 
-  generateTile(a: number, b: number): Tile {
-    let tile: Tile = {
+  private generateTile(x: number, y: number): Tile {
+    return {
       state: 'closed',
-      isMine: false,//this.isBomb(),
+      isMine: false,
       neighbourMines: 0,
-      x: a,
-      y: b,
+      x,
+      y,
     };
-
-    return tile;
   }
 
-  // isBomb(): boolean {
-  //   if (Math.floor(Math.random() * 100) <= 30) return true;
-  //   return false;
-  // }
+  private generateMines() {
+    for (let b = 0; b < this.bombs; ) {
+      const x = this.randomCoordinate();
+      const y = this.randomCoordinate();
 
-  generateMines(size:number, ) {
-    let a: number = this.bombs
-    while (a > 0) {
-      let bombx = Math.floor(Math.random()*size)
-      let bomby = Math.floor(Math.random()*size)
-      console.log('bomb number:'+a+' x:'+bombx+' y:'+bomby);
-        if (!this.board[bombx][bomby].isMine) {
-          this.board[bombx][bomby].isMine = true;
-          a--;
-        }
+      if (!this.board[y][x].isMine) {
+        this.board[y][x].isMine = true;
+        b++;
+      }
     }
   }
 
-  setNeighbors() {
-    for (let i = 0; i < this.size; i++)
-      for (let k = 0; k < this.size; k++)
-        if (!this.board[i][k].isMine)
-          this.board[i][k].neighbourMines =this.neighbourSearch(this.board[i][k])
+  private randomCoordinate(): number {
+    return Math.floor(Math.random() * this.size);
   }
 
-  neighbourSearch(tile:Tile): number {
+  private setNeighbors() {
+    for (let y = 0; y < this.size; y++)
+      for (let x = 0; x < this.size; x++)
+        if (!this.board[y][x].isMine)
+          this.board[y][x].neighbourMines = this.neighbourSearch(
+            this.board[y][x]
+          );
+  }
+
+  private neighbourSearch(tile: Tile): number {
     let mines = 0;
 
-    for (let i = tile.x-1; i <= tile.x+1; i++)
-      for (let k = tile.y-1; k <= tile.y+1; k++)
-      try{
-        if (this.getTile(i, k)?.isMine) //this.board.find(tile => tile.x == i && tile.y == k)?
-          mines++;
+    for (let y = tile.y - 1; y <= tile.y + 1; y++)
+      for (let x = tile.x - 1; x <= tile.x + 1; x++) {
+        if (x >= 0 && x < this.size && y >= 0 && y < this.size)
+          if (this.board[y][x]?.isMine) mines++;
       }
-      catch {}
 
     return mines;
   }
+}
 
-  getTile(x:number, y:number): Tile {
-    return this.board[x][y];
-  }
-
-  printBoard() {
-    console.log(this.board);
-  }
+interface example {
+  key: String;
 }

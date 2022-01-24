@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BoardService } from './services/board.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'minesweeper';
+
+  boardService: BoardService;
+
+  constructor(boardService: BoardService) {
+    this.boardService = boardService;
+    //setTimeout(() => boardService.generateGame(10,10), 5000)
+  }
+
+  resetGame() {
+    this.boardService.generateGame(10,10);
+  }
 }
