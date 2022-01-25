@@ -14,9 +14,12 @@ export class BoardComponent implements OnInit {
 
   imgSource = '../../assets/closed.png';
 
+  boardService: BoardService;
+
   constructor(boardService: BoardService) {
-    this.board = boardService.generateGame(100,30);
-   }
+    this.boardService = boardService;
+    this.boardService.board$.subscribe(board => this.board = board);
+  }
 
   ngOnInit(): void {
 
@@ -36,12 +39,16 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  onClick(tile: Tile) {
+  onClick(tile: Tile): void {
+    if (tile.state == 'cleared') return;
     tile.state = tile.isMine ? 'bomb' : 'cleared';
+    this.boardService.clearedNeigbourSearch(tile);
   }
 
   onRightClick(tile: Tile) {
-    tile.state = 'cleared' ? 'cleared' : 'flagged';
+    if (tile.state != 'cleared')
+      tile.state = 'flagged';
+    return false;
   }
 
 }

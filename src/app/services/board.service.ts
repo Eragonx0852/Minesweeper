@@ -1,22 +1,23 @@
 import { Inject, Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Tile } from '../interfaces/tile';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BoardService {
-
-  private size: number = 5;
-  private bombs: number = 3;
+  private size: number = 10;
+  private bombs: number = 10;
 
   private board: Tile[][] = [];
-  //board$: Observable<Tile[][]>;
+  board$: BehaviorSubject<Tile[][]>;
 
-  constructor() {}
+  constructor() {
+    this.board$ = new BehaviorSubject<Tile[][]>([]);
+  }
 
-  public generateGame(bombs: number, gridSize: number): Tile[][] {
+  public generateGame(bombs: number, gridSize: number) {
     this.bombs = bombs;
     this.size = gridSize;
 
@@ -24,8 +25,7 @@ export class BoardService {
     this.generateMines();
     this.setNeighbors();
 
-    return this.board;
-    //this.board$.
+    this.board$.next(this.board);
   }
 
   private generateBoard() {
@@ -83,6 +83,18 @@ export class BoardService {
       }
 
     return mines;
+  }
+
+  public clearedNeigbourSearch(tile: Tile) {
+    for (let y = tile.y - 1; y <= tile.y + 1; y++)
+      for (let x = tile.x - 1; x <= tile.x + 1; x++) {
+        if (x >= 0 && x < this.size && y >= 0 && y < this.size)
+          if (this.board[y][x].state != 'cleared' && !this.board[y][x].isMine) {
+            this.board[y][x].state = 'cleared';
+            if (this.board[y][x].neighbourMines == 0)
+              this.clearedNeigbourSearch(this.board[y][x]);
+          }
+      }
   }
 }
 
