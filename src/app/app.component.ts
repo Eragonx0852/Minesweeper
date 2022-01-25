@@ -9,13 +9,10 @@ import { BoardService } from './services/board.service';
 export class AppComponent {
   title = 'minesweeper';
 
-  boardService: BoardService;
 
-  constructor(boardService: BoardService) {
-    this.boardService = boardService;
-  }
+  constructor(private boardService: BoardService) { }
 
   resetGame() {
-    this.boardService.generateGame(10,10);
+    this.boardService.generateGame(100,25);
   }
 }
