@@ -9,13 +9,11 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideFunctions,getFunctions } from '@angular/fire/functions';
-import { HarmfulIdiotComponent } from './harmful-idiot/harmful-idiot.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardComponent,
-    HarmfulIdiotComponent
   ],
   imports: [
     BrowserModule,
