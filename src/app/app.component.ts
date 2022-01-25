@@ -13,7 +13,6 @@ export class AppComponent {
 
   constructor(boardService: BoardService) {
     this.boardService = boardService;
-    //setTimeout(() => boardService.generateGame(10,10), 5000)
   }
 
   resetGame() {

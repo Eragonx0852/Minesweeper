@@ -12,10 +12,10 @@ export class BoardComponent implements OnInit {
 
   board: Tile[][] = [];
 
-  imgSource = '../../assets/clear.png';
+  imgSource = '../../assets/closed.png';
 
   constructor(boardService: BoardService) {
-    this.board = boardService.generateGame(10,10);
+    this.board = boardService.generateGame(100,30);
    }
 
   ngOnInit(): void {
@@ -37,13 +37,11 @@ export class BoardComponent implements OnInit {
   }
 
   onClick(tile: Tile) {
-    if (tile.isMine) tile.state = 'bomb'
-    else tile.state = 'cleared'
+    tile.state = tile.isMine ? 'bomb' : 'cleared';
   }
 
   onRightClick(tile: Tile) {
-    if (tile.state != 'cleared') tile.state = 'flagged';
-    return false;
+    tile.state = 'cleared' ? 'cleared' : 'flagged';
   }
 
 }
