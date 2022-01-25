@@ -12,12 +12,38 @@ export class BoardComponent implements OnInit {
 
   board: Tile[][] = [];
 
-  constructor(boardService: BoardService) {
+  imgSource = '../../assets/clear.png';
 
+  constructor(boardService: BoardService) {
+    this.board = boardService.generateGame(40,10);
    }
 
   ngOnInit(): void {
 
+  }
+
+  getTileColor(neighbourMines: number): string {
+    switch (neighbourMines) {
+      case 1: return "green";
+      case 2: return "blue";
+      case 3: return "red";
+      case 4: return "brown";
+      case 5: return "orange";
+      case 6: return "purple";
+      case 7: return "pink";
+      case 8: return "yellow";
+      default: return "black";
+    }
+  }
+
+  onClick(tile: Tile) {
+    if (tile.isMine) tile.state = 'bomb'
+    else tile.state = 'cleared'
+  }
+
+  onRightClick(tile: Tile) {
+    tile.state = 'flagged';
+    return false;
   }
 
 }

@@ -16,7 +16,7 @@ export class BoardService {
 
   constructor() {}
 
-  public generateGame(bombs: number, gridSize: number) {
+  public generateGame(bombs: number, gridSize: number): Tile[][] {
     this.bombs = bombs;
     this.size = gridSize;
 
@@ -24,6 +24,7 @@ export class BoardService {
     this.generateMines();
     this.setNeighbors();
 
+    return this.board;
     //this.board$.
   }
 

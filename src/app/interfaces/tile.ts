@@ -1,5 +1,5 @@
 export interface Tile {
-  state: 'flagged' | 'cleared' | 'closed';
+  state: 'flagged' | 'cleared' | 'closed' | 'bomb';
   isMine: boolean;
   neighbourMines: number;
   x : number;
