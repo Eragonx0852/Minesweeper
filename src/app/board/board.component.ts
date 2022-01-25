@@ -15,7 +15,7 @@ export class BoardComponent implements OnInit {
   imgSource = '../../assets/clear.png';
 
   constructor(boardService: BoardService) {
-    this.board = boardService.generateGame(40,10);
+    this.board = boardService.generateGame(10,10);
    }
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class BoardComponent implements OnInit {
       case 6: return "purple";
       case 7: return "pink";
       case 8: return "yellow";
-      default: return "black";
+      default: return "white";
     }
   }
 
@@ -42,7 +42,7 @@ export class BoardComponent implements OnInit {
   }
 
   onRightClick(tile: Tile) {
-    tile.state = 'flagged';
+    if (tile.state != 'cleared') tile.state = 'flagged';
     return false;
   }
 
