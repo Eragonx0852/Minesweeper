@@ -13,24 +13,17 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { BoardService } from './services/board.service';
 import { DatabaseService } from './services/database.service';
 
-
 @NgModule({
-  declarations: [
-    AppComponent,
-    BoardComponent,
-  ],
+  declarations: [AppComponent, BoardComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // firestore
     AngularFireAuthModule, // auth
-    AngularFireStorageModule // storage
+    AngularFireStorageModule, // storage
   ],
-  providers: [
-    BoardService,
-    DatabaseService
-  ],
-  bootstrap: [AppComponent]
+  providers: [BoardService, DatabaseService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

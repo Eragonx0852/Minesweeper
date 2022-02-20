@@ -45,10 +45,8 @@ export class BoardComponent implements OnInit {
   onClick(tile: Tile): void {
     if (tile.state == 'cleared' || tile.state == 'flagged') return;
     tile.state = tile.isMine ? 'bomb' : 'cleared';
-    if (tile.state == 'bomb')
-      this.endGame();
-    if (tile.neighbourMines == 0)
-      this.boardService.clearedNeigbourSearch(tile);
+    if (tile.state == 'bomb') this.endGame();
+    if (tile.neighbourMines == 0) this.boardService.clearedNeigbourSearch(tile);
   }
 
   onRightClick(tile: Tile) {
@@ -57,8 +55,7 @@ export class BoardComponent implements OnInit {
       return false;
     }
 
-    if (tile.state != 'cleared')
-      tile.state = 'flagged';
+    if (tile.state != 'cleared') tile.state = 'flagged';
 
     return false;
   }

@@ -7,5 +7,5 @@ export const environment = {
     authDomain: 'minesweeper-a74df.firebaseapp.com',
     messagingSenderId: '332031760647',
   },
-  production: true
+  production: true,
 };

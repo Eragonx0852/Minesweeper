@@ -12,7 +12,10 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class AppComponent {
   title = 'minesweeper';
 
-  constructor(private boardService: BoardService, private db: DatabaseService) { }
+  constructor(
+    private boardService: BoardService,
+    private db: DatabaseService
+  ) {}
 
   resetGame() {
     this.boardService.generateGame(100, 25);
