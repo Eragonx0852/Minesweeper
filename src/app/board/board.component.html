@@ -1,10 +1,10 @@
 <div style="padding: 10 10;">
-  <div *ngFor="let row of board" class="grid-container" >
+  <div *ngFor="let row of board" class="grid-container">
     <div *ngFor="let tile of row" class="grid-item" (contextmenu)='onRightClick(tile)' (click)='onClick(tile)'>
       <div *ngIf="tile.state=='cleared';">
         <p [ngStyle]="{color:getTileColor(tile.neighbourMines)}">{{tile.neighbourMines}}</p>
       </div>
-      <img style="width: 50px;" src='../../assets/{{tile.state}}.png' />
+      <img style="width: 50px;" src='../../assets/{{tile.state}}.png'/>
     </div>
   </div>
 </div>

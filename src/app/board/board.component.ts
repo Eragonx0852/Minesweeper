@@ -1,7 +1,6 @@
-import { flatten } from '@angular/compiler';
-import { Component, OnInit, ɵsetCurrentInjector } from '@angular/core';
-import { Tile } from '../interfaces/tile';
-import { BoardService } from '../services/board.service';
+import {Component, OnInit} from '@angular/core';
+import {Tile} from '../interfaces/tile';
+import {BoardService} from '../services/board.service';
 
 @Component({
   selector: 'app-board',
@@ -17,7 +16,8 @@ export class BoardComponent implements OnInit {
     this.boardService.board$.subscribe((board) => (this.board = board));
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   getTileColor(neighbourMines: number): string {
     switch (neighbourMines) {

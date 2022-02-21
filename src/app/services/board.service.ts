@@ -1,7 +1,6 @@
-import { Inject, Injectable } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Tile } from '../interfaces/tile';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {Tile} from '../interfaces/tile';
 
 @Injectable({
   providedIn: 'root',
@@ -49,7 +48,7 @@ export class BoardService {
   }
 
   private generateMines() {
-    for (let b = 0; b < this.bombs; ) {
+    for (let b = 0; b < this.bombs;) {
       const x = this.randomCoordinate();
       const y = this.randomCoordinate();
 

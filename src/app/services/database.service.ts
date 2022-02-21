@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import {Injectable} from '@angular/core';
+import {AngularFirestore} from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +12,10 @@ export class DatabaseService {
 
   async createCollection() {
     let x = await this.firestore.collection('dragons').add({
-      name:'slutdragon',
-      sex:'unicorn'
+      name: 'slutdragon',
+      sex: 'unicorn'
     }).then(value => console.log(value.id))
-    console.log('Return from Firestore: '+ x);
+    console.log('Return from Firestore: ' + x);
   }
 
 
