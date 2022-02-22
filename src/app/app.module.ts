@@ -11,8 +11,9 @@ import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
 import {AngularFireStorageModule} from '@angular/fire/compat/storage';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import {BoardService} from './services/board.service';
-import {DatabaseService} from './services/database.service';
+import {CloudFunctionsService} from './services/cloud-functions.service';
 import {HttpClientModule} from "@angular/common/http";
+import {AngularFireFunctionsModule} from "@angular/fire/compat/functions";
 
 
 @NgModule({
@@ -27,11 +28,12 @@ import {HttpClientModule} from "@angular/common/http";
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    AngularFireFunctionsModule,
     HttpClientModule
   ],
   providers: [
     BoardService,
-    DatabaseService
+    CloudFunctionsService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {BoardService} from './services/board.service';
-import {DatabaseService} from './services/database.service';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {CloudFunctionsService} from './services/cloud-functions.service';
+import {AngularFirestore} from "@angular/fire/compat/firestore";
+
 
 @Component({
   selector: 'app-root',
@@ -11,18 +11,23 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 export class AppComponent {
   title = 'minesweeper';
 
-  constructor(private boardService: BoardService, private db: DatabaseService, private http: HttpClient) {
+  constructor(private cloudFunctions: CloudFunctionsService, private firestore: AngularFirestore) {
   }
 
-  async resetGame() {
-    this.boardService.generateGame(100, 25);
+  resetGame() {
+    // const body = {
+    //   firstNumber: 5,
+    //   secondNumber: 4
+    // };
 
-    let headers = new HttpHeaders().set('Access-Control-Allow-Origin','*')
+    //this.firestore.collection('random').add({random:'random'});
 
-    this.http.post('https://us-central1-minesweeper-a74df.cloudfunctions.net/generateGame', {
-      size: 5,
-      mines: 4
-    }).subscribe(value => console.log(value))
+    this.cloudFunctions.generateGame(4,2).then(console.log).catch(console.log);
+
+    // this.http.post(environment.cloudFunction.createGame, body)
+    //   .subscribe((response: Partial<CreateGameResponse>) => {
+    //     console.log(response.id)
+    //   });
 
   }
 
