@@ -13,12 +13,12 @@ export class GameService {
   gamesCollection: CollectionReference<DocumentData>;
 
   constructor(private firestore: Firestore) {
-    this.gamesCollection = collection(this.firestore, 'games');
-    this.game$ = docData(doc(this.gamesCollection, '')) as Observable<Board>;
+    this.gamesCollection = collection(firestore, 'games');
+    this.game$ = docData(doc(this.gamesCollection, '4IVE5eBbyM5qlYJs69Q0')) as Observable<Board>;
   }
 
   joinGame(gameID: string) {
-    this.game$ = docData(doc(this.gamesCollection, '')) as Observable<Board>;
+    this.game$ = docData(doc(this.gamesCollection, gameID)) as Observable<Board>;
   }
 
 }

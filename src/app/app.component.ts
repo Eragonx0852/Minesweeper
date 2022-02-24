@@ -18,7 +18,8 @@ export class AppComponent {
   }
 
   joinGame(gameID: string) {
-    this.gameService.joinGame(gameID);
+    this.cloudFunctions.generateGame(10,10).then(console.log).catch(console.log);
+    // this.gameService.joinGame(gameID);
     console.log(gameID)
   }
 }

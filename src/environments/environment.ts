@@ -8,8 +8,5 @@ export const environment = {
     authDomain: 'minesweeper-a74df.firebaseapp.com',
     messagingSenderId: '332031760647',
   },
-  cloudFunction: {
-    createGame: 'https://us-central1-minesweeper-a74df.cloudfunctions.net/generateGame'
-  },
-  production: false
+  production: true
 };
