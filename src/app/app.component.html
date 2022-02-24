@@ -1,3 +1,6 @@
 <router-outlet>
 </router-outlet>
-<button (click)="resetGame()">Reset Game</button>
+
+<input #gameID>
+
+<button (click)="joinGame(gameID.value)">Reset Game</button>

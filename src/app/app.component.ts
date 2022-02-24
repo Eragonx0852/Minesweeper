@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {CloudFunctionsService} from './services/cloud-functions.service';
-import {AngularFirestore} from "@angular/fire/compat/firestore";
-
+import {FormBuilder} from "@angular/forms";
+import {GameService} from "./services/game.service";
 
 @Component({
   selector: 'app-root',
@@ -11,25 +11,14 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 export class AppComponent {
   title = 'minesweeper';
 
-  constructor(private cloudFunctions: CloudFunctionsService, private firestore: AngularFirestore) {
+  constructor(private cloudFunctions: CloudFunctionsService, private gameService: GameService) {
+    //cloudFunctions.generateGame(6,9);
+
+    gameService.game$?.subscribe(console.log)
   }
 
-  resetGame() {
-    // const body = {
-    //   firstNumber: 5,
-    //   secondNumber: 4
-    // };
-
-    //this.firestore.collection('random').add({random:'random'});
-
-    this.cloudFunctions.generateGame(4,2).then(console.log).catch(console.log);
-
-    // this.http.post(environment.cloudFunction.createGame, body)
-    //   .subscribe((response: Partial<CreateGameResponse>) => {
-    //     console.log(response.id)
-    //   });
-
+  joinGame(gameID: string) {
+    this.gameService.joinGame(gameID);
+    console.log(gameID)
   }
-
-
 }

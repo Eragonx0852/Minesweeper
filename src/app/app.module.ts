@@ -4,16 +4,19 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BoardComponent} from './board/board.component';
-import {environment} from '../environments/environment';
 
-import {AngularFireModule} from '@angular/fire/compat';
-import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
-import {AngularFireStorageModule} from '@angular/fire/compat/storage';
-import {AngularFireAuthModule} from '@angular/fire/compat/auth';
-import {BoardService} from './services/board.service';
+import {getFirestore, provideFirestore} from '@angular/fire/firestore';
+import {initializeApp, provideFirebaseApp} from "@angular/fire/app";
+import {getStorage, provideStorage} from "@angular/fire/storage";
+import {getAuth, provideAuth} from "@angular/fire/auth";
+import {getFunctions, provideFunctions} from "@angular/fire/functions";
+
+import {GameService} from './services/game.service';
 import {CloudFunctionsService} from './services/cloud-functions.service';
 import {HttpClientModule} from "@angular/common/http";
-import {AngularFireFunctionsModule} from "@angular/fire/compat/functions";
+
+import {ReactiveFormsModule} from "@angular/forms";
+import {environment} from "../environments/environment";
 
 
 @NgModule({
@@ -24,15 +27,16 @@ import {AngularFireFunctionsModule} from "@angular/fire/compat/functions";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule,
-    AngularFireStorageModule,
-    AngularFireFunctionsModule,
-    HttpClientModule
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
+    provideFunctions(() => getFunctions()),
+    provideStorage(() => getStorage()),
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
-    BoardService,
+    GameService,
     CloudFunctionsService
   ],
   bootstrap: [AppComponent]

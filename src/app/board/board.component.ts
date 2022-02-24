@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Tile} from '../interfaces/tile';
-import {BoardService} from '../services/board.service';
+import {GameService} from '../services/game.service';
 
 @Component({
   selector: 'app-board',
@@ -12,8 +12,7 @@ export class BoardComponent implements OnInit {
 
   imgSource = '../../assets/closed.png';
 
-  constructor(private boardService: BoardService) {
-    this.boardService.board$.subscribe((board) => (this.board = board));
+  constructor(private boardService: GameService) {
   }
 
   ngOnInit(): void {
@@ -48,7 +47,8 @@ export class BoardComponent implements OnInit {
     if (tile.state == 'bomb')
       this.endGame();
     if (tile.neighbourMines == 0)
-      this.boardService.clearedNeigbourSearch(tile);
+      console.log('ERROR HERE')
+      //this.boardService.clearedNeigbourSearch(tile);
   }
 
   onRightClick(tile: Tile) {

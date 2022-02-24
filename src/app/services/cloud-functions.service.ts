@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {getFunctions, httpsCallable} from "firebase/functions";
 import firebase from "firebase/compat";
-import HttpsCallableResult = firebase.functions.HttpsCallableResult;
 import {Level} from "../interfaces/request.interface";
+import HttpsCallableResult = firebase.functions.HttpsCallableResult;
 
 @Injectable({
   providedIn: 'root'
