@@ -1,7 +1,4 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
+// Local
 export const environment = {
   firebase: {
     projectId: 'minesweeper-a74df',
@@ -11,14 +8,22 @@ export const environment = {
     authDomain: 'minesweeper-a74df.firebaseapp.com',
     messagingSenderId: '332031760647',
   },
+  emulators: {
+    firestore: {
+      host: 'localhost',
+      port: 8080,
+    },
+    auth: {
+      uri: 'http://localhost:9099',
+    },
+    functions: {
+      host: 'localhost',
+      port: 5001,
+    },
+    storage: {
+      host: 'localhost',
+      port: 9199,
+    },
+  },
   production: false
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
