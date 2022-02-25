@@ -14,7 +14,7 @@ export class GameService {
 
   constructor(private firestore: Firestore) {
     this.gamesCollection = collection(firestore, 'games');
-    this.game$ = docData(doc(this.gamesCollection, '4IVE5eBbyM5qlYJs69Q0')) as Observable<Board>;
+    this.game$ = docData(doc(this.gamesCollection, '2jjPyYHlVt9pcwUWcfC9')) as Observable<Board>;
   }
 
   joinGame(gameID: string) {

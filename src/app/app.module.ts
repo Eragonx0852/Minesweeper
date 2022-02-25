@@ -1,68 +1,94 @@
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
+import { environment } from '../environments/environment';
 
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {BoardComponent} from './board/board.component';
+// Modules
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
+// Components
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { BoardComponent } from './board/board.component';
+
+// Services
+import { GameService } from './services/game.service';
+import { CloudFunctionsService } from './services/cloud-functions.service';
+
+// Firebase Libraries
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import {
+  provideFirestore,
+  getFirestore,
   connectFirestoreEmulator,
   enableIndexedDbPersistence,
-  getFirestore,
-  provideFirestore
 } from '@angular/fire/firestore';
-import {initializeApp, provideFirebaseApp} from "@angular/fire/app";
-import {getStorage, provideStorage} from "@angular/fire/storage";
-import {getAuth, provideAuth} from "@angular/fire/auth";
-import {connectFunctionsEmulator, getFunctions, provideFunctions} from "@angular/fire/functions";
-
-import {GameService} from './services/game.service';
-import {CloudFunctionsService} from './services/cloud-functions.service';
-import {HttpClientModule} from "@angular/common/http";
-
-import {ReactiveFormsModule} from "@angular/forms";
-import {environment} from "../environments/environment";
-import { USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/compat/auth';
-import { USE_EMULATOR as USE_DATABASE_EMULATOR } from '@angular/fire/compat/database';
-import { USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/compat/firestore';
-import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
-
+import {
+  provideStorage,
+  getStorage,
+  connectStorageEmulator,
+} from '@angular/fire/storage';
+import {
+  provideAuth,
+  getAuth,
+  connectAuthEmulator,
+} from '@angular/fire/auth';
+import {
+  provideFunctions,
+  getFunctions,
+  connectFunctionsEmulator,
+} from '@angular/fire/functions';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    BoardComponent,
-  ],
+  declarations: [AppComponent, BoardComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => {
-      const firestore = getFirestore();
-      // if (environment.production)
-      //   return firestore;
-
-      connectFirestoreEmulator(firestore, 'localhost', 8080);
-      enableIndexedDbPersistence(firestore);
-      return firestore;
-    }),
-    //provideAuth(() => getAuth()),
-    provideFunctions(() => {
-      const functions = getFunctions();
-      // if (environment.production)
-      //   return functions;
-
-      connectFunctionsEmulator(functions, 'localhost', 5001);
-      return functions;
-    }),
+    provideFirestore(() => firestoreEmulator()),
+    provideAuth(() => authEmulator()),
+    provideFunctions(() => functionsEmulator()),
+    provideStorage(() => storageEmulator()),
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [
-    GameService,
-    CloudFunctionsService,
-  ],
-  bootstrap: [AppComponent]
+  providers: [GameService, CloudFunctionsService],
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}
+
+
+// Configuring the environment variables for the firebase emulators
+
+const firestoreEmulator = () => {
+  const firestore = getFirestore();
+  if (environment.production) return firestore;
+  const {host, port} = environment.emulators.firestore;
+  connectFirestoreEmulator(firestore, host, port);
+  enableIndexedDbPersistence(firestore);
+  return firestore;
+};
+
+const storageEmulator = () => {
+  const storage = getStorage();
+  if (environment.production) return storage;
+  const {host, port} = environment.emulators.storage;
+  connectStorageEmulator(storage, host, port);
+  return storage;
+};
+
+const authEmulator = () => {
+  const auth = getAuth();
+  if (environment.production) return auth;
+  const {uri} = environment.emulators.auth;
+  connectAuthEmulator(auth, uri);
+  return auth;
+};
+
+const functionsEmulator = () => {
+  const functions = getFunctions();
+  if (environment.production) return functions;
+  const {host, port} = environment.emulators.functions;
+  connectFunctionsEmulator(functions, host, port);
+  return functions;
+};

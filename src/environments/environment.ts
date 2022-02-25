@@ -8,5 +8,22 @@ export const environment = {
     authDomain: 'minesweeper-a74df.firebaseapp.com',
     messagingSenderId: '332031760647',
   },
-  production: true
+  emulators: {
+    firestore: {
+      host: 'localhost',
+      port: 8080,
+    },
+    auth: {
+      uri: 'http://localhost:9099',
+    },
+    functions: {
+      host: 'localhost',
+      port: 5001,
+    },
+    storage: {
+      host: 'localhost',
+      port: 9199,
+    },
+  },
+  production: false
 };

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Tile} from '../interfaces/tile';
-import {GameService} from '../services/game.service';
+import { Component, OnInit } from '@angular/core';
+import { Tile } from '../interfaces/game.interface';
+import { GameService } from '../services/game.service';
 
 @Component({
   selector: 'app-board',
@@ -12,11 +12,9 @@ export class BoardComponent implements OnInit {
 
   imgSource = '../../assets/closed.png';
 
-  constructor(private boardService: GameService) {
-  }
+  constructor(private boardService: GameService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   getTileColor(neighbourMines: number): string {
     switch (neighbourMines) {
@@ -41,30 +39,11 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  onClick(tile: Tile): void {
-    if (tile.state == 'cleared' || tile.state == 'flagged') return;
-    tile.state = tile.isMine ? 'bomb' : 'cleared';
-    if (tile.state == 'bomb')
-      this.endGame();
-    if (tile.neighbourMines == 0)
-      console.log('ERROR HERE')
-      //this.boardService.clearedNeigbourSearch(tile);
-  }
+  onClick(tile: Tile): void {}
 
-  onRightClick(tile: Tile) {
-    if (tile.state == 'flagged') {
-      tile.state = 'closed';
-      return false;
-    }
-
-    if (tile.state != 'cleared')
-      tile.state = 'flagged';
-
-    return false;
-  }
+  onRightClick(tile: Tile) {}
 
   endGame() {
-    //clear all tiles, make flagged tiles blue
     alert('You have lost!');
   }
 }
