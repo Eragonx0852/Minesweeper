@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Tile } from '../interfaces/game.interface';
-import { GameService } from '../services/game.service';
+import {Component, OnInit} from '@angular/core';
+import {Tile} from '../interfaces/game.interface';
+import {GameService} from '../services/game.service';
 
 @Component({
   selector: 'app-board',
@@ -12,9 +12,11 @@ export class BoardComponent implements OnInit {
 
   imgSource = '../../assets/closed.png';
 
-  constructor(private boardService: GameService) {}
+  constructor(private boardService: GameService) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   getTileColor(neighbourMines: number): string {
     switch (neighbourMines) {
@@ -39,9 +41,11 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  onClick(tile: Tile): void {}
+  onClick(tile: Tile): void {
+  }
 
-  onRightClick(tile: Tile) {}
+  onRightClick(tile: Tile) {
+  }
 
   endGame() {
     alert('You have lost!');

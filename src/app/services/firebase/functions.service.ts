@@ -1,16 +1,17 @@
 import {Injectable} from '@angular/core';
 import {httpsCallable} from "firebase/functions";
 import firebase from "firebase/compat";
-import {Level} from "../interfaces/request.interface";
+import {Level} from "../../interfaces/request.interface";
+import {Functions} from '@angular/fire/functions';
 import HttpsCallableResult = firebase.functions.HttpsCallableResult;
-import { Functions } from '@angular/fire/functions';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CloudFunctionsService {
+export class FunctionsService {
 
-  constructor(private functions: Functions) {}
+  constructor(private functions: Functions) {
+  }
 
   getHttpsCallableMethod(methodName: string, body: any): Promise<HttpsCallableResult> {
     const method = httpsCallable(this.functions, methodName);

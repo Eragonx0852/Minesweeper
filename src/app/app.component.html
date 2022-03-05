@@ -1,6 +1,27 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Minesweeper</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" (click)="signIn()">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>share</mat-icon>
+  </button>
+  </mat-toolbar>
+
 <router-outlet>
 </router-outlet>
+<label>Bombs: </label>
+<mat-slider max="100" min="0" step="1" value="10"></mat-slider>
+<br>
+<label>Width: </label>
+<mat-slider max="100" min="0" step="1" value="10"></mat-slider>
+<br>
 
 <input #gameID>
 
 <button (click)="joinGame(gameID.value)">Reset Game</button>
+

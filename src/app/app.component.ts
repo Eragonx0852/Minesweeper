@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {CloudFunctionsService} from './services/cloud-functions.service';
+import {FunctionsService} from './services/firebase/functions.service';
 import {GameService} from "./services/game.service";
+import {AuthenticationService} from "./services/firebase/authentication.service";
 
 @Component({
   selector: 'app-root',
@@ -10,14 +11,19 @@ import {GameService} from "./services/game.service";
 export class AppComponent {
   title = 'minesweeper';
 
-  constructor(private cloudFunctions: CloudFunctionsService, private gameService: GameService) {
+  constructor(private cloudFunctions: FunctionsService, private gameService: GameService, private authService:AuthenticationService) {
     gameService.game$?.subscribe(console.log)
   }
 
   joinGame(gameID: string) {
     if (gameID.trim().length != 20)
-      this.cloudFunctions.generateGame(10,10).then(console.log).catch(console.log);
+      this.cloudFunctions.generateGame(10, 10).then(console.log).catch(console.log);
     else
       this.gameService.joinGame(gameID);
+
+  }
+
+  signIn() {
+    this.authService.googleSignIn();
   }
 }
