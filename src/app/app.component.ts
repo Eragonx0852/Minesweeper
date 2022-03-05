@@ -15,6 +15,9 @@ export class AppComponent {
   }
 
   joinGame(gameID: string) {
-    this.cloudFunctions.generateGame(10,10).then(console.log).catch(console.log);
+    if (gameID.trim().length != 20)
+      this.cloudFunctions.generateGame(10,10).then(console.log).catch(console.log);
+    else
+      this.gameService.joinGame(gameID);
   }
 }

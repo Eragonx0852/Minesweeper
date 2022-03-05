@@ -9,8 +9,8 @@ export interface Columns {
 }
 
 export interface Board {
-  width: number;
-  height: number;
-  mines: number;
-  rows: Columns[]
+  width?: number;
+  height?: number;
+  mines?: number;
+  rows?: Columns[]
 }

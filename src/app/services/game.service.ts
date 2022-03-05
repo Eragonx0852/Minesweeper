@@ -1,24 +1,27 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {collection, doc, docData, Firestore} from "@angular/fire/firestore";
 import {Board} from "../interfaces/game.interface";
-import {CollectionReference, DocumentData} from "@firebase/firestore";
+import {CollectionReference} from "@firebase/firestore";
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
 
-  game$: Observable<Board>;
-  gamesCollection: CollectionReference<DocumentData>;
+  game$: BehaviorSubject<Board>;
+  gamesCollection: CollectionReference;
 
   constructor(private firestore: Firestore) {
     this.gamesCollection = collection(firestore, 'games');
-    this.game$ = docData(doc(this.gamesCollection, '2jjPyYHlVt9pcwUWcfC9')) as Observable<Board>;
+    this.game$ = new BehaviorSubject<Board>({})
   }
 
   joinGame(gameID: string) {
-    this.game$ = docData(doc(this.gamesCollection, gameID)) as Observable<Board>;
+    docData(doc(this.gamesCollection, gameID)).subscribe(board => {
+      this.game$.next(board as Board)
+    });
+    console.log("is this shit working???");
   }
 
 }
