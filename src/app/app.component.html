@@ -4,21 +4,43 @@
   </button>
   <span>Minesweeper</span>
   <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" (click)="signIn()">
-    <mat-icon>account_circle</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+  <div *ngIf="authService.user$; then profile else login"></div>
+  <ng-template #profile>
+    <button mat-icon-button
+            (click)="showProfile()">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </ng-template>
+  <ng-template #login>
+    <button mat-icon-button [matMenuTriggerFor]="login">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+
+    <mat-menu #login="matMenu">
+      <button mat-menu-item
+              (click)="authService.googleSignIn()">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <button mat-menu-item
+              (click)="authService.passwordLessSignIn()">
+        <mat-icon>forward_to_inbox</mat-icon>
+        <!--<input type="email" name="email" ngModel [email]="true">-->
+      </button>
+    </mat-menu>
+  </ng-template>
+
+  <button mat-icon-button>
     <mat-icon>share</mat-icon>
   </button>
-  </mat-toolbar>
+</mat-toolbar>
 
 <router-outlet>
 </router-outlet>
 <label>Bombs: </label>
-<mat-slider max="100" min="0" step="1" value="10"></mat-slider>
+<mat-slider thumbLabel max="100" min="0" step="1" value="10"></mat-slider>
 <br>
 <label>Width: </label>
-<mat-slider max="100" min="0" step="1" value="10"></mat-slider>
+<mat-slider thumbLabel max="100" min="0" step="1" value="10"></mat-slider>
 <br>
 
 <input #gameID>

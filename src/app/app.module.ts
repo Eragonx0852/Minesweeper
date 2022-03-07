@@ -16,6 +16,7 @@ import {FunctionsService} from './services/firebase/functions.service';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from "./material.module";
 import {FirebaseModule} from "./firebase.module";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [AppComponent, BoardComponent],
@@ -27,6 +28,7 @@ import {FirebaseModule} from "./firebase.module";
     NoopAnimationsModule,
     MaterialModule,
     FirebaseModule,
+    MatMenuModule,
   ],
   providers: [GameService, FunctionsService],
   bootstrap: [AppComponent],

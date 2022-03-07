@@ -3,7 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {BoardComponent} from './board/board.component';
 
 const routes: Routes = [
-  {path: '', component: BoardComponent}
+  {path: '', component: BoardComponent},
+  {path: 'login', component:BoardComponent}
 ];
 
 @NgModule({

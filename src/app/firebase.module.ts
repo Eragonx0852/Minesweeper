@@ -1,4 +1,4 @@
-import {NgModule} from "@angular/core";
+import {isDevMode, NgModule} from "@angular/core";
 import {environment} from "../environments/environment";
 
 import {initializeApp, provideFirebaseApp} from "@angular/fire/app";
@@ -27,33 +27,37 @@ export class FirebaseModule {
 
 const firestoreEmulator = () => {
   const firestore = getFirestore();
-  if (environment.production) return firestore;
-  const {host, port} = environment.emulators.firestore;
-  connectFirestoreEmulator(firestore, host, port);
-  enableIndexedDbPersistence(firestore);
+  if (isDevMode()) {
+    const {host, port} = environment.emulators.firestore;
+    connectFirestoreEmulator(firestore, host, port);
+    enableIndexedDbPersistence(firestore);
+  }
   return firestore;
 };
 
 const storageEmulator = () => {
   const storage = getStorage();
-  if (environment.production) return storage;
-  const {host, port} = environment.emulators.storage;
-  connectStorageEmulator(storage, host, port);
+  if (isDevMode()) {
+    const {host, port} = environment.emulators.storage;
+    connectStorageEmulator(storage, host, port);
+  }
   return storage;
 };
 
 const authEmulator = () => {
   const auth = getAuth();
-  if (environment.production) return auth;
-  const {uri} = environment.emulators.auth;
-  connectAuthEmulator(auth, uri);
+  if (isDevMode()) {
+    const {uri} = environment.emulators.auth;
+    connectAuthEmulator(auth, uri);
+  }
   return auth;
 };
 
 const functionsEmulator = () => {
   const functions = getFunctions();
-  if (environment.production) return functions;
-  const {host, port} = environment.emulators.functions;
-  connectFunctionsEmulator(functions, host, port);
+  if (isDevMode()) {
+    const {host, port} = environment.emulators.functions;
+    connectFunctionsEmulator(functions, host, port);
+  }
   return functions;
 };

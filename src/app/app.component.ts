@@ -11,8 +11,10 @@ import {AuthenticationService} from "./services/firebase/authentication.service"
 export class AppComponent {
   title = 'minesweeper';
 
-  constructor(private cloudFunctions: FunctionsService, private gameService: GameService, private authService:AuthenticationService) {
-    gameService.game$?.subscribe(console.log)
+  constructor(private cloudFunctions: FunctionsService, private gameService: GameService, public authService:AuthenticationService) {
+    gameService.game$?.subscribe(console.log);
+    authService.user$?.subscribe(console.log);
+
   }
 
   joinGame(gameID: string) {
@@ -20,10 +22,9 @@ export class AppComponent {
       this.cloudFunctions.generateGame(10, 10).then(console.log).catch(console.log);
     else
       this.gameService.joinGame(gameID);
-
   }
 
-  signIn() {
-    this.authService.googleSignIn();
+  showProfile() {
+
   }
 }
